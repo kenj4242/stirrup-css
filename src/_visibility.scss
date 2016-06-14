@@ -1,0 +1,25 @@
+
+
+@each $bp in $breakpoints {
+	$bp-name: nth($bp, 1);
+	$bp-length: nth($bp, 2);
+
+	// hidden classes
+	.#{$prefix}hidden-#{$bp-name} {
+		display: none;
+	}
+
+	// visibile classes
+	.#{$prefix}visible-#{$bp-name} {
+		display: initial;
+	}
+	.#{$prefix}visible-#{$bp-name}-block {
+		display: block;
+	}
+	.#{$prefix}visible-#{$bp-name}-inline {
+		display: inline;
+	}
+
+};
+
+

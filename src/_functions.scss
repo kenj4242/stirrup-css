@@ -1,0 +1,219 @@
+// prefixed names
+$pname-container: #{$prefix}#{$name-container};
+$pname-row: #{$prefix}#{$name-row};
+$pname-col: #{$prefix}#{$name-col};
+
+
+// clearfix
+@mixin group-block() {
+	&:before, &:after {
+		display: table;
+		content: " ";
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+
+@mixin col-defaults() {
+	position: relative;
+	display: block;
+	max-width: 100%;
+	padding-left: $gutter-width;
+	padding-right: $gutter-width;
+}
+
+@mixin default-col-blocks() {
+
+	%col-fullwidth {
+		@include col-defaults();
+		flex: 0 0 100%;
+	}
+
+	%col-autowidth {
+		@include col-defaults();
+		flex: 0 1 auto;
+	}
+
+	@each $breakpoint in $breakpoints {
+		$bp-name: nth($breakpoint, 1);
+
+		// the "auto" col
+		.#{$pname-col}-#{$bp-name} {
+			@extend %col-autowidth;
+		}
+
+		// the sized cols
+		@for $i from 1 through $col-count {
+			.#{$pname-col}-#{$bp-name}-#{$i} {
+				@extend %col-fullwidth;
+			}
+		}
+	}
+}
+
+
+@mixin col-blocks-base($container) {
+
+	%#{$name-col}-blocksbase-#{$container} {
+		flex: 0 0 auto;
+	}
+
+	@for $i from 1 through $col-count {
+		.#{$pname-col}-#{$container}-#{$i}, .#{$name-col}-#{$container}-offset-#{$i} {
+			@extend %#{$name-col}-blocksbase-#{$container};
+		}
+	}
+}
+
+
+@mixin col-blocks($container) {
+
+	// the auto-sizing class for this breakpoint
+	.#{$pname-col}-#{$container} {
+		flex-grow: 1;
+		flex-basis: 0;
+		max-width: 100%;
+	}
+
+	@for $i from 1 through $col-count {
+		.#{$pname-col}-#{$container}-#{$i} {
+			flex-basis: 100% * ($i / $col-count);
+			max-width: 100% * ($i / $col-count);
+			width: auto;
+		}
+	}
+
+	@for $i from 0 through ($col-count - 1) {
+		.#{$pname-col}-#{$container}-offset-#{$i} {
+			margin-left: ((1 / $col-count) * 100% * $i);
+		}
+	}
+
+	@include flex-modifiers($container: $container)
+
+}
+
+
+@mixin flex-modifiers($container) {
+
+	//
+	// row modifiers for reverse order
+	//
+	.#{$pname-row}-reverse-#{$container} {
+  	flex-direction: row-reverse;
+	}
+
+
+	//
+	// row modifiers for justify-content
+	//
+
+	.#{$pname-row}-justify-start-#{$container} {
+		justify-content: flex-start;
+	}
+
+	.#{$pname-row}-justify-end-#{$container} {
+		justify-content: flex-end;
+	}
+
+	.#{$pname-row}-justify-center-#{$container} {
+		justify-content: center;
+	}
+
+	.#{$pname-row}-justify-around-#{$container} {
+		justify-content: space-around;
+	}
+
+	.#{$pname-row}-justify-between-#{$container} {
+		justify-content: space-between;
+	}
+
+
+	//
+	// row modifiers for align-items
+	//
+	.#{$pname-row}-valign-top-#{$container} {
+		align-items: flex-start;
+	}
+
+	.#{$pname-row}-valign-middle-#{$container} {
+		align-items: center;
+	}
+
+	.#{$pname-row}-valign-bottom-#{$container} {
+		align-items: flex-end;
+	}
+
+	.#{$pname-row}-valign-baseline-#{$container} {
+		align-items: baseline;
+	}
+
+
+	//
+	// row modifiers for align-content
+	// these only "work" if our row height is taller than our col contnet
+	//
+	.#{$pname-row}-vspace-top-#{$container} {
+		align-content: flex-start;
+	}
+
+	.#{$pname-row}-vspace-bottom-#{$container} {
+		align-content: flex-end;
+	}
+
+	.#{$pname-row}-vspace-middle-#{$container} {
+		align-content: center;
+	}
+
+	.#{$pname-row}-vspace-between-#{$container} {
+		align-content: space-between;
+	}
+
+	.#{$pname-row}-vspace-around-#{$container} {
+		align-content: space-around;
+	}
+
+
+	//
+	// col modifiers for overriding the align-items of the row
+	//
+	.#{$pname-col}-valign-top-#{$container} {
+		align-self: flex-start;
+	}
+
+	.#{$pname-col}-valign-bottom-#{$container} {
+		align-self: flex-end;
+	}
+
+	.#{$pname-col}-valign-middle-#{$container} {
+		align-self: center;
+	}
+
+	.#{$pname-col}-valign-baseline-#{$container} {
+		align-self: flex-start;
+	}
+
+
+	//
+	// col modifiers for re-ordering cols
+	//
+	.#{$pname-col}-#{$container}-order-first {
+		order: -1;
+	}
+
+	.#{$pname-col}-#{$container}-order-last {
+		order: 9999;
+	}
+
+	@for $i from 0 through $col-count {
+		.#{$pname-col}-#{$container}-order-#{$i} {
+			order: #{$i};
+		}
+	}
+
+}
+
+
+

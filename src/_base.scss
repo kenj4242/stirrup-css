@@ -1,0 +1,99 @@
+
+
+// get a list of the breakpoints starting with the 2nd item
+// since the first item is always set at the "default"
+$breakpoints2: ();
+$i: 2;
+$len: length($breakpoints);
+@while $i <= $len {
+	$bp: nth($breakpoints, $i);
+	$bp-name: nth($bp, 1);
+	$bp-length: nth($bp, 2);
+
+	$breakpoints2: map-merge($breakpoints2, ($bp-name: $bp-length));
+
+	$i: ($i + 1);
+}
+
+
+
+/********** CONTAINERS **********/
+%container-base {
+	@include group-block();
+	padding-left: $gutter-width;
+	padding-right: $gutter-width;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.#{$pname-container}-fluid, 
+.#{$pname-container} {
+	@extend %container-base;
+}
+
+// container classes for the fluid-{size} containers
+@each $bp in $breakpoints2 {
+	$bp-name: nth($bp, 1);
+	
+	.#{$pname-container}-fluid-#{$bp-name} {
+		@extend %container-base;
+	}
+}
+
+
+/********** ROWS **********/
+// our row class
+.#{$pname-row} {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: #{$name-row};
+  flex-wrap: wrap;
+  margin-right: (-1 * $gutter-width);
+  margin-left: (-1 * $gutter-width);
+}
+
+
+
+
+/********** COLUMNS **********/
+// default all column classes to 100% width
+@include default-col-blocks();
+
+// define our columns for the smallest size
+//@include col-blocks-base($container: xs);
+@include col-blocks($container: xs);
+
+
+
+/********** BREAKPOINTS **********/
+// iterate through all the column classes GREATER than the smallest
+// (the smallest is always considered 100% width, the length value is always effectively 0)
+// add the media queries that make our columns flex at the different breakpoints
+@each $bp in $breakpoints2 {
+	$bp-name: nth($bp, 1);
+	$bp-length: nth($bp, 2);
+
+	/********** BREAKPOINT-#{$bp-name} **********/
+	@media only screen and (min-width: $bp-length) {
+
+		// the container size for this breakpoint
+		.#{$pname-container} {
+			width: map-get($container-widths, $bp-name);
+		}
+
+		// the fluid-{size} container at this breakpoint
+		// which is fluid anywhere below this breakpoint
+		.#{$pname-container}-fluid-#{$bp-name} {
+			width: map-get($container-widths, $bp-name);
+		}
+
+		// define the columns
+		//@include col-blocks-base($container: $bp-name);
+		@include col-blocks($container: $bp-name);
+	}
+}
+
+
+
+
+

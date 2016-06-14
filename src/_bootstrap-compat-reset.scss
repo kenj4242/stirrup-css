@@ -1,0 +1,21 @@
+
+%col-reset {
+	float: none;
+}
+
+@each $breakpoint in $breakpoints {
+	$bp-name: nth($breakpoint, 1);
+
+	@for $i from 1 through $col-count {
+		.#{$pname-col}-#{$bp-name}-#{$i} {
+			@extend %col-reset;
+		}
+	}
+}
+
+// remove clearfix from rows, this messes-up flex-justify
+.#{$pname-row}:before,.#{$pname-row}:after {
+	display:none;
+}
+
+

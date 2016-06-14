@@ -1,0 +1,30 @@
+{
+  "name": "stirrup-css",
+  "version": "1.0.0",
+  "description": "CSS3 flexbox responsive grid that can be used as a drop-in replacement for the Bootstrap 3 grid, or as a standalone flexbox grid system",
+	"keywords": ["CSS", "flexbox", "responsive", "responsive grid", "bootstrap" ],
+  "main": "dist/stirrup.min.css",
+  "style": "dist/stirrup.min.css",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+	"homepage": "https://www.github.com/kenj4242/stirrup-css",
+  "author": {
+    "name": "Ken Johnson",
+    "email": "kenj4242@gmail.com",
+		"url": "https://www.github.com/kenj4242"
+  },
+  "license": "Apache-2.0",
+	"licenseDistUrl": "https://www.github.com/kenj4242/stirrup-css/blob/master/LICENSE",
+  "devDependencies": {
+    "autoprefixer": "^6.3.6",
+    "gulp": "^3.9.1",
+    "gulp-header": "^1.8.2",
+    "gulp-postcss": "^6.1.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.1",
+    "run-sequence": "^1.2.1"
+  }
+}
+
+

@@ -1,0 +1,34 @@
+
+// names of our grid elements 
+// so we can choose non-conflict with bootstrap or override the bootstrap classes
+$prefix: "";
+$name-container: "container";
+$name-row: "row";
+$name-col: "col";
+
+// number of responsive columns, in case you don't want 12
+$col-count: 12;
+
+// width of gutters
+$gutter-width: 15px;
+
+// responsive breakpoints, defined by their minimum widths
+// this is a map of "breakpoint name": "breakpoint minimum width"
+// these MUST be in order from smallest size to largest
+// the first breakpoint MUST be set to width = 0
+$breakpoints: ( 
+	xs: 0, 
+	sm: 768px, 
+	md: 992px, 
+	lg: 1200px 
+);
+
+// the width of the container of each breakpoint, map keys much match the keys in $breakpoints
+$container-widths: ( 
+	xs: 100%,
+	sm: 720px + ($gutter-width * 2),
+	md: 940px + ($gutter-width * 2),
+	lg: 1140px + ($gutter-width * 2)
+);
+
+
