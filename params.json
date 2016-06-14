@@ -1,0 +1,6 @@
+{
+  "name": "Stirrup-css",
+  "tagline": "CSS3 flexbox responsive grid that can be used as a drop-in replacement for the Bootstrap 3 grid, or as a standalone flexbox grid system",
+  "body": "# Stirrup-CSS\r\n\r\nStirrup is a simple CSS flexbox responsive grid system. Its aimed to be used as a drop-in replacement for the Bootstrap 3 Grid system, or as a stand-alone responsive grid system.\r\n\r\nMore docs coming...\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
